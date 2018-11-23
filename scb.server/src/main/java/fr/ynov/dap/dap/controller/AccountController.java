@@ -32,6 +32,7 @@ public class AccountController{
 	 * @throws GeneralSecurityException
 	 */
 	@RequestMapping("/account/add/{accountName}")
+	@ResponseBody
 	public String addAccount(@PathVariable final String accountName, 
 							 @RequestParam final String userKey , 
 							 final HttpServletRequest request,

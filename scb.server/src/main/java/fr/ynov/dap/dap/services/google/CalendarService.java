@@ -63,7 +63,7 @@ public class CalendarService extends GoogleService {
 		List<CustomEvent> customEvents = new ArrayList<CustomEvent>();
 		for(int i =0; i < gAccounts.size(); i++) {
 			DateTime now = new DateTime(System.currentTimeMillis());
-	        Events events = getService(user).events().list("primary")
+	        Events events = getService(gAccounts.get(i).getName()).events().list("primary")
 	                .setMaxResults(1)
 	                .setTimeMin(now)
 	                .setOrderBy("startTime")
@@ -75,7 +75,6 @@ public class CalendarService extends GoogleService {
 	        if(items.size() != 0) {
 		        Date start = new Date(items.get(0).getStart().getDateTime().getValue());
 		        Date end = new Date(items.get(0).getEnd().getDateTime().getValue());
-		        //TODO scb by Djer Stauts de l'event, pas de l'utilisateur effectuant le requete
 		        event = new CustomEvent(start, end, items.get(0).getSummary(),items.get(0).getStatus());
 		        customEvents.add(event);
 	        }

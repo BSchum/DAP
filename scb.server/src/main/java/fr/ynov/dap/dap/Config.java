@@ -20,6 +20,7 @@ public class Config{
     //TODO scb by Djer évite de mélanger des conf "developpeur" et des conf "administrateur systeme"
 
 	public List<String> allScopes = new ArrayList<String>(Arrays.asList(GmailScopes.GMAIL_LABELS, CalendarScopes.CALENDAR_READONLY, PeopleServiceScopes.CONTACTS_READONLY));
+	
 	public String getoAuth2CallbackUrl() {
 		return "/oAuth2CallBack";
 	}
