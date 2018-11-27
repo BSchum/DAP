@@ -17,6 +17,11 @@ public class OutlookWebAccessController {
 	@Autowired 
 	private OutlookMailService outlookMailService;
 	
+	/**
+	 * Display the 10 last mail on all outlook account
+	 * @param userid AppAccount
+	 * @return
+	 */
 	@RequestMapping("/outlookMails")
 	public ModelAndView GetOutlookMails(@RequestParam("userKey") String userid) {
 		ModelAndView mv = new ModelAndView("mail");

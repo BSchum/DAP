@@ -36,11 +36,11 @@ public class AccountController{
 	/**
 	 * Add a Google account (user will be prompt to connect and accept required
 	 * access).
-	 * 
-	 * @param userId  the user to store Data
-	 * @param request the HTTP request
-	 * @param session the HTTP session
-	 * @return the view to Display (on Error)
+	 * @param accountName Name that will refer to the google account
+	 * @param userKey Application Account related to the google account
+	 * @param request
+	 * @param session
+	 * @return
 	 * @throws GeneralSecurityException
 	 */
 	@RequestMapping("/account/add/{accountName}")
@@ -70,7 +70,12 @@ public class AccountController{
 			return "redirect:/";
 	}
 	
-	
+	/**
+	 * @param userKey Application account name to add
+	 * @param request
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/user/add/{userKey}")
 	@ResponseBody
 	public String AddUser(@PathVariable final String userKey,final HttpServletRequest request, final HttpSession session) {

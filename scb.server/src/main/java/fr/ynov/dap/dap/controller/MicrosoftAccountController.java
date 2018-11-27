@@ -14,10 +14,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.ynov.dap.dap.services.microsoft.OutlookAccountService;
 
+/**
+ * @author Brice
+ *
+ */
 @Controller
 public class MicrosoftAccountController {
 	@Autowired
 	OutlookAccountService outlookAccount;
+	
+	
+	/**
+	 * Add a microsoft account to our app account
+	 * @param accountName Name that will refer to the google account
+	 * @param userKey Application Account
+	 * @param request
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/account/microsoft/add/{accountName}")
 	public String addAccount(@PathVariable final String accountName, 
 			 @RequestParam final String userKey , 

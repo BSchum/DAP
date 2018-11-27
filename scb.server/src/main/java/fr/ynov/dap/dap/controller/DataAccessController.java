@@ -38,8 +38,11 @@ import fr.ynov.dap.dap.services.microsoft.OutlookCalendarService;
 import fr.ynov.dap.dap.services.microsoft.OutlookContactService;
 import fr.ynov.dap.dap.services.microsoft.OutlookMailService;
 
+/**
+ * @author Brice
+ *
+ */
 @Controller
-//TODO scb by Djer Bonne idée l'unique Controller (vu le peu de contenu) mais préfixe des MappingRequest ! 
 public class DataAccessController{
 	@Autowired
 	private GmailService gmailService;
@@ -64,9 +67,9 @@ public class DataAccessController{
 	@Autowired 
 	private OutlookAccountRepository outlookRepo;
 	/**
+	 * return the number of unread mails on all your account
 	 * 
-	 * 
-	 * @param userid
+	 * @param userid Application account name
 	 * @return Number of unread messages
 	 * @throws IOException
 	 * @throws GeneralSecurityException
@@ -84,8 +87,8 @@ public class DataAccessController{
 	}
 	
 	/**
-	 * 
-	 * @param userid
+	 * Return the next event
+	 * @param userid Application account name
 	 * @return next event info
 	 * @throws IOException
 	 * @throws GeneralSecurityException
@@ -120,8 +123,8 @@ public class DataAccessController{
 	}
 	
 	/**
-	 * 
-	 * @param userid
+	 * Return the contact number of all accounts
+	 * @param userid Application account name
 	 * @return Return contact numbers
 	 * @throws IOException
 	 * @throws GeneralSecurityException
@@ -135,6 +138,13 @@ public class DataAccessController{
 		return result.toString();
 	}
 	
+	
+	/**
+	 * Admin panel to see all credentials of google and microsoft accounts
+	 * @return Model + View
+	 * @throws IOException
+	 * @throws GeneralSecurityException
+	 */
 	@RequestMapping("/admin/credentials")
 	public ModelAndView GetAllCredentials() throws IOException, GeneralSecurityException {
 		HashMap<String, StoredCredential> mapStoredCred = peopleService.GetCredentialsAsMap();
