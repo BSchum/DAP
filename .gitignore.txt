@@ -1,0 +1,1 @@
+/scb.server/src/main/resources/credentials.json
