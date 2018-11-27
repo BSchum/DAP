@@ -57,7 +57,7 @@ public class CalendarService extends GoogleService {
 	 * @throws IOException
 	 * @throws GeneralSecurityException
 	 */
-	public List<CustomEvent> getNextEvent(String user) throws IOException, GeneralSecurityException{
+	public CustomEvent getNextEvent(String user) throws IOException, GeneralSecurityException{
 		AppUser appUser = repository.findByName(user);
 		List<GoogleAccount> gAccounts = appUser.getAccounts();
 		List<CustomEvent> customEvents = new ArrayList<CustomEvent>();
@@ -76,10 +76,10 @@ public class CalendarService extends GoogleService {
 		        Date start = new Date(items.get(0).getStart().getDateTime().getValue());
 		        Date end = new Date(items.get(0).getEnd().getDateTime().getValue());
 		        event = new CustomEvent(start, end, items.get(0).getSummary(),items.get(0).getStatus());
-		        customEvents.add(event);
+		        return event;
 	        }
 		}
 		
-		return customEvents;
+		return null;
 	}
 }

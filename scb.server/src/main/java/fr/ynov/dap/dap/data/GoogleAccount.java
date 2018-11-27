@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class GoogleAccount {
+public class GoogleAccount extends Account{
 	@Id
 	@GeneratedValue
 	int id;

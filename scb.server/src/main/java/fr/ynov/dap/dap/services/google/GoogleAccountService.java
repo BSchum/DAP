@@ -19,6 +19,7 @@ import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.http.GenericUrl;
 
+import fr.ynov.dap.dap.data.Account.AccountType;
 import fr.ynov.dap.dap.data.AppUser;
 import fr.ynov.dap.dap.data.AppUserRepository;
 import fr.ynov.dap.dap.data.GoogleAccount;
@@ -159,8 +160,9 @@ public class GoogleAccountService extends GoogleService {
 					GoogleAccount gAccount = new GoogleAccount();
 					gAccount.setOwner(currentUser);
 					gAccount.setName(accountName);
+					gAccount.setAccountType(AccountType.Google);
 					
-					currentUser.adGoogleAccount(gAccount);
+					currentUser.addAccount(gAccount);
 					
 					repository.save(currentUser);
 					

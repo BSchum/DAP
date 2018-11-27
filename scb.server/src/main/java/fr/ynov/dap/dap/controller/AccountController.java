@@ -1,5 +1,6 @@
 package fr.ynov.dap.dap.controller;
 
+import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 import javax.servlet.ServletException;
@@ -10,10 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import fr.ynov.dap.dap.services.google.GoogleAccountService;
+import fr.ynov.dap.dap.services.microsoft.OutlookService;
+import fr.ynov.dap.dap.services.microsoft.OutlookServiceFactory;
+
+import java.util.UUID;
+import org.springframework.ui.Model;
+import fr.ynov.dap.dap.helpers.AuthHelper;
+import fr.ynov.dap.dap.models.IdToken;
+import fr.ynov.dap.dap.models.OutlookUser;
+import fr.ynov.dap.dap.models.TokenResponse;
 
 @Controller
 public class AccountController{
@@ -32,7 +44,6 @@ public class AccountController{
 	 * @throws GeneralSecurityException
 	 */
 	@RequestMapping("/account/add/{accountName}")
-	@ResponseBody
 	public String addAccount(@PathVariable final String accountName, 
 							 @RequestParam final String userKey , 
 							 final HttpServletRequest request,
