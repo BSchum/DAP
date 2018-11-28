@@ -1,24 +1,46 @@
 package fr.ynov.dap.dap;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.people.v1.PeopleServiceScopes;
 
+import fr.ynov.dap.dap.helpers.AuthHelper;
+
 
 @Configuration
+@PropertySource("classpath:application.properties")
 public class Config{
-    String credentialPath = "/credentials.json";
-    String tokenPath = "tokens";
-    String appName = "Gmail API Java Quickstart";
-    
-    //TODO scb by Djer évite de mélanger des conf "developpeur" et des conf "administrateur systeme"
-
+	
+	@Value("${app.credentialpath}")
+    String credentialPath;
+	@Value("${tokenPath}")
+    String tokenPath;
+	@Value("${appName}")
+    String appName;
+    @Value("${appId}")
+	String appId;
+	@Value("${appPassword}")
+	String appPassword;
+	@Value("${redirectUrl}")
+	String redirectUrl;
+	@Value("${authority}")
+	String authorize;
+	@Value("${authorizeUrl}")
+	String authorizeUrl;
+	
 	public List<String> allScopes = new ArrayList<String>(Arrays.asList(GmailScopes.GMAIL_LABELS, CalendarScopes.CALENDAR_READONLY, PeopleServiceScopes.CONTACTS_READONLY));
 	
 	public String getoAuth2CallbackUrl() {
@@ -30,7 +52,9 @@ public class Config{
 	public int sensibleDataFirstChar = 0;
 	
 	public String getCredentialPath() {
-		return credentialPath;
+		String path = System.getProperty("user.home") + System.getProperty("file.separator");
+		
+		return path  + credentialPath;
 	}
 	public void setCredentialPath(String credentialPath) {
 		this.credentialPath = credentialPath;
@@ -64,6 +88,21 @@ public class Config{
 	}
 	public void setSensibleDataFirstChar(int sensibleDataFirstChar) {
 		this.sensibleDataFirstChar = sensibleDataFirstChar;
+	}
+	public String getAppId() {
+		return appId;
+	}
+	public String getAppPassword() {
+		return appPassword;
+	}
+	public String getRedirectUrl() {
+		return redirectUrl;
+	}
+	public String getAuthorize() {
+		return authorize;
+	}
+	public String getAuthorizeUrl() {
+		return authorizeUrl;
 	}
 	
 	

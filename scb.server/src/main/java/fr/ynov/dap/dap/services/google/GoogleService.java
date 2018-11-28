@@ -15,9 +15,11 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import fr.ynov.dap.dap.Config;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.List;
@@ -40,8 +42,11 @@ public class GoogleService{
     */
     protected GoogleClientSecrets LoadClientSecret() throws IOException {
         // Load client secrets.
-        InputStream in = GoogleService.class.getResourceAsStream(config.getCredentialPath());
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+    	System.out.println(config.getCredentialPath());
+        InputStreamReader in = new InputStreamReader(new FileInputStream(config.getCredentialPath()),
+                Charset.forName("UTF-8"));
+        		//GoogleService.class.getResourceAsStream(config.getCredentialPath());
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, in);
         
 		return clientSecrets;
     }

@@ -37,17 +37,36 @@ public class AppUser {
 	public List<GoogleAccount> getAccounts() {
 		return googleAccounts;
 	}
+	
+	public void setOutlookAccounts(List<OutlookAccount> outlookAccounts) {
+		this.outlookAccounts = outlookAccounts;
+	}
+
+	public List<OutlookAccount> getOutlookAccounts() {
+		return outlookAccounts;
+	}
 
 	String name;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	List<GoogleAccount> googleAccounts;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+	List<OutlookAccount> outlookAccounts;
 
-	public void adGoogleAccount(GoogleAccount account) {
+	public void addAccount(GoogleAccount account) {
 
 		account.setOwner(this);
 
 		this.getAccounts().add(account);
+
+	}
+	
+	public void addAccount(OutlookAccount account) {
+
+		account.setOwner(this);
+
+		this.getOutlookAccounts().add(account);
 
 	}
 

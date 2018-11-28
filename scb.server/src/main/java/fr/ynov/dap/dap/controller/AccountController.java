@@ -1,5 +1,6 @@
 package fr.ynov.dap.dap.controller;
 
+import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 import javax.servlet.ServletException;
@@ -10,10 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import fr.ynov.dap.dap.services.google.GoogleAccountService;
+import fr.ynov.dap.dap.services.microsoft.OutlookService;
+import fr.ynov.dap.dap.services.microsoft.OutlookServiceFactory;
+
+import java.util.UUID;
+import org.springframework.ui.Model;
+import fr.ynov.dap.dap.helpers.AuthHelper;
+import fr.ynov.dap.dap.models.IdToken;
+import fr.ynov.dap.dap.models.OutlookUser;
+import fr.ynov.dap.dap.models.TokenResponse;
 
 @Controller
 public class AccountController{
@@ -24,15 +36,14 @@ public class AccountController{
 	/**
 	 * Add a Google account (user will be prompt to connect and accept required
 	 * access).
-	 * 
-	 * @param userId  the user to store Data
-	 * @param request the HTTP request
-	 * @param session the HTTP session
-	 * @return the view to Display (on Error)
+	 * @param accountName Name that will refer to the google account
+	 * @param userKey Application Account related to the google account
+	 * @param request
+	 * @param session
+	 * @return
 	 * @throws GeneralSecurityException
 	 */
 	@RequestMapping("/account/add/{accountName}")
-	@ResponseBody
 	public String addAccount(@PathVariable final String accountName, 
 							 @RequestParam final String userKey , 
 							 final HttpServletRequest request,
@@ -59,7 +70,12 @@ public class AccountController{
 			return "redirect:/";
 	}
 	
-	
+	/**
+	 * @param userKey Application account name to add
+	 * @param request
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/user/add/{userKey}")
 	@ResponseBody
 	public String AddUser(@PathVariable final String userKey,final HttpServletRequest request, final HttpSession session) {
